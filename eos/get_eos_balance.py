@@ -21,7 +21,7 @@ class EOSCommon:
             retry_times = HTTPAdapter(max_retries=10)
             session = requests.Session()
             session.mount(url, retry_times)
-            response = session.post(url,json=data,timeout=10,headers=header)
+            response = session.post(url,json=data,timeout=10,headers=header,verify=False)
             return response.json()
         except Exception as e :
             pass

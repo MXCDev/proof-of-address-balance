@@ -58,5 +58,5 @@ class ALGOCommon:
         headers = {"Content-Type": "application/json"}
         url = "{}/v2/assets/{}".format(url, contract)
         response = self.request(url, header=headers)
-        results = response.json()['asset']['params']['decimals']
+        results = response['asset']['params']['decimals']
         return Decimal(results)

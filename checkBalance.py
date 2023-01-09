@@ -50,8 +50,8 @@ class Start:
         '''
         for key,infos in COMMON_INFO.items():
             if values[1] in infos:
-                return self.dispatch("common_{}".format(key.lower()), values[0], values[1], values[2])
-        return self.dispatch("common_{}".format(values[1].lower()), values[0], values[1], values[2])
+                return self.dispatch("common_{}".format(key.lower()), values[0], values[1], values[2],int(values[-1]))
+        return self.dispatch("common_{}".format(values[1].lower()), values[0], values[1], values[2],int(values[-1]))
 
     def dispatch(self,work,*args,**kwargs):
         '''
@@ -76,24 +76,27 @@ class Start:
         except Exception as e:
             return
 
-    def common_func(self,conn,coin_name,wallet_name,address):
+    def common_func(self,conn,coin_name,wallet_name,address,height):
         '''
         Public processing module
         :param conn:Connection of different currencies
         :param coin_name:search coin name
         :param wallet_name:search chain name
         :param address:search address of coin name
+        :param height: search balance in height
         '''
-        height = self.deal_info("{}.{}_SNAPSHOT_BLOCK_{}".format(wallet_name, wallet_name, coin_name))
         url = self.deal_info("{}.{}_URL".format(wallet_name, wallet_name))
         contract = self.deal_info("{}.{}_{}_CONTRACT".format(wallet_name, wallet_name, coin_name))
-        if not height or not url or not contract:
+        if not height or not url :
             return
         balance = conn.get_balance(url, address, height, contract)
         try:
-            if balance['error']['code']:
+            if balance is None:
+                return
+            if balance['error']['code'] :
                 print("[{}] the node data is expired，please replace config {} url with other node. you can find in https://chainlist.org/zh ".format(
                     datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),wallet_name))
+                return
         except Exception as ke:
             print("[{}] address:{} network:{} balance:{} coin:{}\t height:{}".format(
                 datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
@@ -114,7 +117,8 @@ class Start:
         coin_name = args[0]
         wallet_name = args[1].replace(" ", "").replace("BEP20(BSC)", "BSC").replace("ERC20", "ETH")
         address = args[2]
-        return self.common_func(conn,coin_name,wallet_name,address)
+        height = args[-1]
+        return self.common_func(conn,coin_name,wallet_name,address,height)
 
     def common_sol(self,*args):
         '''
@@ -135,7 +139,8 @@ class Start:
         coin_name = args[0]
         wallet_name = args[1].replace("TRC20", "TRX")
         address = args[2]
-        return self.common_func(conn,coin_name,wallet_name,address)
+        height = args[-1]
+        return self.common_func(conn,coin_name,wallet_name,address,height)
 
     def common_algo(self,*args):
         '''
@@ -165,7 +170,7 @@ def main(chain,address,name,file):
     :return:
     '''
     if not file:
-        print("Please enter query file")
+        print("\033[31mPlease enter query file\033[0m")
         return
 
     start = Start()

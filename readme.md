@@ -4,18 +4,19 @@
 
 #### 1.1.1 Windoors 用户
 1. 下载对应代码
-* url :
+* url :https://github.com/MXCDev/proof-of-address-balance.git
 2. 下载对应可执行文件
-* url :
+* url :https://github.com/MXCDev/proof-of-address-balance/releases/download/v0.1.0/checkBalance_v0.1.0_windows.tar.gz
 
 #### 1.1.2 Mac/Linux 用户
 1. 下载对应代码
-* url :
+* url :https://github.com/MXCDev/proof-of-address-balance.git
 2. 下载对应可执行文件
-* url :
+* url :https://github.com/MXCDev/proof-of-address-balance/releases/download/v0.1.0/checkBalance_v0.1.0_mac.tar.gz
+* url :https://github.com/MXCDev/proof-of-address-balance/releases/download/v0.1.0/checkBalance_v0.1.0_linux.tar.gz
 
 #### 1.2 下载储备文件
-* url :
+* url :https://github.com/MXCDev/proof-of-address-balance/raw/main/address_info.xlsx
 
 **把下载的储备证明文件和验证工具存储到同一个文件夹里**
 
@@ -131,7 +132,7 @@ python3 checkBalance.py --chain="eth" --address="0x75e89d5979e4f6fba9f97c104c2f0
 
 #### 2.4 验证SOL链的余额
 
-##### 2.2.1 windows 用户
+##### 2.4.1 windows 用户
 1. 方法1:直接使用代码验证
 下载对应代码库中的代码，下载完成之后，进行如下操作：
 ```bash
@@ -157,7 +158,7 @@ checkBalance.exe --file="coin.xlsx"
 checkBalance.exe --chain="sol" --address="5PAhQiYdLBd6SVdjzBQDxUAEFyDdF5ExNPQfcscnPRj5" --name="usdt" --file="coin.xlsx"
 ```
 
-##### 2.2.2 Mac / Linux
+##### 2.4.2 Mac / Linux
 1. 方法1:直接使用代码验证
 下载对应代码库中的代码，下载完成之后，进行如下操作：
 ```bash
